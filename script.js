@@ -1,5 +1,5 @@
 // ====== GANTI STRING DI BAWAH INI DENGAN URL WEB APP ANDA ======
-const scriptURL = 'https://script.google.com/macros/s/AKfycbxNQU5nMiUYKzHrDGcQ5OM6r64Gt9cvEtphLHon1peoxH4BHE-8JkRpOLurSNUyzVow_Q/exec'; 
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxOq8W2c2i7FMk5sJHojhngZjo0o7aSFelkUH5ZHMfYNx0PcCzRaX7GoAhQkWELNWLXPg/exec'; 
 // ===============================================================
 
 async function cariSertifikat() {
@@ -9,7 +9,7 @@ async function cariSertifikat() {
     const wrapper = document.getElementById('certificate-wrapper');
     
     // Validasi input kosong
-    if(!inputNama) {
+    if (!inputNama) {
         pesanError.innerText = "Nama Lengkap tidak boleh kosong!";
         wrapper.style.display = 'none';
         return;
@@ -25,7 +25,7 @@ async function cariSertifikat() {
         const response = await fetch(`${scriptURL}?nama=${encodeURIComponent(inputNama)}`);
         const result = await response.json();
 
-        if(result.status === 'success') {
+        if (result.status === 'success') {
             // Tulis data ke sertifikat HTML
             document.getElementById('cert-nama').innerText = result.data.nama;
             document.getElementById('cert-sebagai').innerText = result.data.sebagai;
@@ -38,7 +38,7 @@ async function cariSertifikat() {
             wrapper.style.display = 'none';
         }
     } catch (error) {
-        pesanError.innerText = "Terjadi kesalahan sistem atau URL Web App belum diganti. Coba lagi.";
+        pesanError.innerText = "Terjadi kesalahan sistem atau URL Web App bermasalah. Coba lagi.";
         console.error("Fetch error: ", error);
         wrapper.style.display = 'none';
     }
