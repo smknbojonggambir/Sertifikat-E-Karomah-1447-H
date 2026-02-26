@@ -67,7 +67,7 @@ doc.addImage("ttd-kepsek.png", "PNG", 200, 170, 40, 20);
 doc.text("Iman Rahmat, S. Pd. I", 200, 195);
 
 // QR Verifikasi
-const verifikasiURL = "https://username.github.io/ekaromah-sertifikat/verifikasi.html?nomor=" + data.nomor;
+const verifikasiURL = "https://smknbojonggambir.github.io/Sertifikat-E-Karomah-1447-H/verifikasi.html?nomor=" + data.nomor;
 
 const qrDiv = document.createElement("div");
 new QRCode(qrDiv, {
