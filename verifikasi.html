@@ -1,42 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>Verifikasi Sertifikat</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifikasi Sertifikat Karomah 1447 H</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Tambahan CSS Khusus Halaman Verifikasi */
+        .verify-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-top: 50px;
+            width: 100%;
+            max-width: 500px;
+        }
+        .icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+        .valid { color: #28a745; }
+        .invalid { color: #dc3545; }
+        .detail-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: left;
+            border-left: 5px solid #28a745;
+        }
+        .detail-box p { margin: 5px 0; font-size: 16px; }
+        #loading { font-style: italic; color: #666; }
+    </style>
 </head>
 <body>
 
-<h2>Verifikasi Sertifikat E-Karomah</h2>
-<div id="hasil"></div>
+    <div class="verify-container">
+        <img src="logo-smk.png" alt="Logo SMK" style="width: 80px;">
+        <h2>Portal Verifikasi Sertifikat</h2>
+        <p>SMK Negeri Bojonggambir - Tahun 1447 H / 2026 M</p>
+        <hr>
 
-<script>
+        <div id="loading">Memeriksa database... Mohon tunggu.</div>
 
-const params = new URLSearchParams(window.location.search);
-const nomor = params.get("nomor");
+        <div id="result-valid" style="display: none;">
+            <div class="icon valid">✔️</div>
+            <h3 class="valid">Sertifikat Valid!</h3>
+            <div class="detail-box">
+                <p><strong>Nomor:</strong> <span id="v-nomor"></span></p>
+                <p><strong>Nama:</strong> <span id="v-nama"></span></p>
+                <p><strong>Sebagai:</strong> <span id="v-sebagai"></span></p>
+                <p><strong>Status:</strong> <span style="color: green; font-weight: bold;">Terdaftar Resmi</span></p>
+            </div>
+        </div>
 
-fetch("https://script.google.com/macros/s/AKfycbxr0X97Fzm5RnRZAusJ1WiCqXC-Oi2ruU5nW1_QI9wrcdqBwJAnoxQg5nG_DPK1vU-pnw/exec")
-.then(res => res.text())
-.then(res => {
-    if(res === "Not Found"){
-        document.getElementById("hasil").innerHTML = "❌ Tidak Valid";
-        return;
-    }
+        <div id="result-invalid" style="display: none;">
+            <div class="icon invalid">❌</div>
+            <h3 class="invalid">Sertifikat Tidak Ditemukan</h3>
+            <p>Maaf, data dengan nomor sertifikat tersebut tidak terdaftar di database resmi kami. Pastikan link yang Anda buka benar.</p>
+        </div>
+        
+        <br>
+        <button onclick="window.location.href='index.html'" style="width: 100%;">Kembali ke Beranda</button>
+    </div>
 
-    const data = JSON.parse(res);
+    <script>
+        // ====== GANTI DENGAN URL WEB APP ANDA YANG BARU ======
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxNQU5nMiUYKzHrDGcQ5OM6r64Gt9cvEtphLHon1peoxH4BHE-8JkRpOLurSNUyzVow_Q/exec'; 
+        // =====================================================
 
-    if(data.nomor === nomor){
-        document.getElementById("hasil").innerHTML = `
-        <h3>✅ Sertifikat Valid</h3>
-        Nama: ${data.nama}<br>
-        Nomor: ${data.nomor}<br>
-        Predikat: ${data.predikat}
-        `;
-    } else {
-        document.getElementById("hasil").innerHTML = "❌ Tidak Valid";
-    }
-});
+        async function cekVerifikasi() {
+            // Mengambil parameter '?nomor=' dari URL browser
+            const urlParams = new URLSearchParams(window.location.search);
+            const nomorSertifikat = urlParams.get('nomor');
 
-</script>
+            if (!nomorSertifikat) {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('result-invalid').style.display = 'block';
+                return;
+            }
 
+            try {
+                // Mengirim request pencarian berdasarkan Nomor
+                const response = await fetch(`${scriptURL}?nomor=${encodeURIComponent(nomorSertifikat)}`);
+                const result = await response.json();
+
+                document.getElementById('loading').style.display = 'none';
+
+                if (result.status === 'success') {
+                    // Jika data ditemukan
+                    document.getElementById('v-nomor').innerText = result.data.nomor;
+                    document.getElementById('v-nama').innerText = result.data.nama;
+                    document.getElementById('v-sebagai').innerText = result.data.sebagai;
+                    document.getElementById('result-valid').style.display = 'block';
+                } else {
+                    // Jika data tidak ada
+                    document.getElementById('result-invalid').style.display = 'block';
+                }
+            } catch (error) {
+                document.getElementById('loading').innerText = "Terjadi kesalahan jaringan saat memverifikasi.";
+            }
+        }
+
+        // Jalankan fungsi otomatis saat halaman dimuat
+        window.onload = cekVerifikasi;
+    </script>
 </body>
 </html>
