@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Verifikasi Sertifikat</title>
+</head>
+<body>
+
+<h2>Verifikasi Sertifikat E-Karomah</h2>
+<div id="hasil"></div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const nomor = params.get("nomor");
+
+fetch("https://script.google.com/macros/s/AKfycbxr0X97Fzm5RnRZAusJ1WiCqXC-Oi2ruU5nW1_QI9wrcdqBwJAnoxQg5nG_DPK1vU-pnw/exec")
+.then(res => res.text())
+.then(res => {
+    if(res === "Not Found"){
+        document.getElementById("hasil").innerHTML = "❌ Tidak Valid";
+        return;
+    }
+
+    const data = JSON.parse(res);
+
+    if(data.nomor === nomor){
+        document.getElementById("hasil").innerHTML = `
+        <h3>✅ Sertifikat Valid</h3>
+        Nama: ${data.nama}<br>
+        Nomor: ${data.nomor}<br>
+        Predikat: ${data.predikat}
+        `;
+    } else {
+        document.getElementById("hasil").innerHTML = "❌ Tidak Valid";
+    }
+});
+
+</script>
+
+</body>
+</html>
