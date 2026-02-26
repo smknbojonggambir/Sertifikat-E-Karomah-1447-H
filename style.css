@@ -1,155 +1,84 @@
-* {
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-color: #f4f4f9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    margin: 0;
-}
-
-.search-container {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    text-align: center;
-    margin-bottom: 20px;
-    width: 100%;
-    max-width: 500px;
-}
-
-input {
-    width: 90%;
-    padding: 10px;
-    margin: 15px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    text-align: center;
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-}
-
-button:hover {
-    background-color: #218838;
-}
-
-button:disabled {
-    background-color: #6c757d;
-    cursor: not-allowed;
-}
-
-.error-msg {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-#certificate-wrapper {
-    margin-top: 20px;
-    text-align: center;
-    overflow-x: auto; /* Agar sertifikat bisa digeser di HP */
-    max-width: 100%;
-}
-
-/* KANVAS SERTIFIKAT (Resolusi A4 Landscape) */
-.certificate {
-    width: 1056px; 
-    height: 816px;
-    background-image: url('background.jpg');
+/* --- KANVAS LAPORAN NILAI (Resolusi A4 Portrait) --- */
+.laporan {
+    width: 794px; 
+    height: 1123px;
+    background-image: url('https://raw.githubusercontent.com/smknbojonggambir/Sertifikat-E-Karomah-1447-H/main/background.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
-    padding: 50px;
-    text-align: center;
-    color: #333;
+    padding: 60px 50px;
     background-color: white; 
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
     margin: 0 auto;
+    color: #1f2937;
 }
 
-.logo {
-    width: 100px;
-    position: absolute;
-    top: 50px;
-    left: 50px;
+.logo-lap {
+    width: 90px;
+    display: block;
+    margin: 0 auto 20px auto;
 }
 
-.cert-text {
-    margin-top: 80px;
-}
-
-.cert-text h1 {
-    font-size: 48px;
-    color: #1a4d2e; 
-    margin-bottom: 5px;
-}
-
-.cert-number {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 30px;
-}
-
-.nama-peserta {
-    font-size: 50px;
-    font-family: 'Georgia', serif;
-    color: #b8860b; 
-    border-bottom: 2px solid #b8860b;
-    display: inline-block;
-    padding: 0 20px;
-    margin: 10px 0 20px 0;
-}
-
-.peran-peserta {
-    font-size: 28px;
-    margin-bottom: 30px;
-    color: #333;
-}
-
-.signatures {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 120px;
-    margin-top: 40px;
-}
-
-.ttd-box {
+.lap-header {
     text-align: center;
+    margin-bottom: 50px;
 }
 
-.img-ttd {
-    height: 100px; 
-    margin: 10px 0;
-    object-fit: contain;
+.lap-header h2 {
+    font-size: 28px;
+    color: #059669;
+    margin: 0 0 5px 0;
 }
 
-.nama-ttd {
-    line-height: 1.5;
-    margin: 0;
+.lap-header p {
+    font-size: 16px;
+    font-weight: 600;
+    color: #4b5563;
 }
 
-.btn-download {
-    margin-top: 20px;
-    background-color: #007bff;
+.lap-identitas {
+    background: rgba(255,255,255,0.8);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #059669;
+    margin-bottom: 40px;
+    font-size: 18px;
+}
+
+.lap-identitas p {
+    margin: 8px 0;
+}
+
+.tabel-nilai {
     width: 100%;
-    max-width: 1056px;
+    border-collapse: collapse;
+    background: rgba(255,255,255,0.9);
+    font-size: 18px;
 }
 
-.btn-download:hover { 
-    background-color: #0056b3; 
+.tabel-nilai th {
+    background: #059669;
+    color: white;
+    padding: 15px;
+    text-align: left;
+    border: 1px solid #047857;
+}
+
+.tabel-nilai td {
+    padding: 15px;
+    border: 1px solid #d1d5db;
+}
+
+.tabel-nilai td:nth-child(2) {
+    text-align: center;
+    font-weight: bold;
+}
+
+.tr-total {
+    background-color: #f3f4f6;
+    font-weight: 700;
+}
+
+.tr-total td {
+    color: #059669;
 }
