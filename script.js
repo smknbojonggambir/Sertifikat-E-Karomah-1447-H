@@ -1,74 +1,79 @@
-// ====== GANTI STRING DI BAWAH INI DENGAN URL WEB APP ANDA ======
-const scriptURL = 'https://script.google.com/macros/s/AKfycbyuK7FNtQK5oXIEhlxTYnT34R4ELTtR1HSEd8g1L1wteGRwKWY9RlKcrFS2EJO97_HQYg/exec'; 
+// ====== GANTI STRING DI BAWAH INI DENGAN URL WEB APP BARU ANDA ======
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyirBD6i2yNRnsWEgJG9HeE7_nbaC5nL-FAgyd71OwwRdIlP3wBgf4r1zXyKnyU14rOmw/exec'; 
 // ===============================================================
 
 async function cariSertifikat() {
     const inputNama = document.getElementById('input-nama').value;
     const pesanError = document.getElementById('pesan-error');
     const btnCari = document.getElementById('btn-cari');
-    const wrapper = document.getElementById('certificate-wrapper');
+    const wrapper = document.getElementById('document-wrapper');
     
-    // Validasi input kosong
     if (!inputNama) {
         pesanError.innerText = "Nama Lengkap tidak boleh kosong!";
         wrapper.style.display = 'none';
         return;
     }
 
-    // Tampilan tombol saat loading
     pesanError.innerText = "";
-    btnCari.innerText = "Mencari Data...";
+    btnCari.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mencari Data...';
     btnCari.disabled = true;
 
     try {
-        // Ambil data (encodeURIComponent untuk mengatasi spasi pada nama)
         const response = await fetch(`${scriptURL}?nama=${encodeURIComponent(inputNama)}`);
         const result = await response.json();
 
         if (result.status === 'success') {
-            // Tulis data ke sertifikat HTML
+            // Isi Data Sertifikat
             document.getElementById('cert-nama').innerText = result.data.nama;
             document.getElementById('cert-sebagai').innerText = result.data.sebagai;
             document.getElementById('cert-nomor').innerText = result.data.nomor;
 
-            // Munculkan sertifikat
-            wrapper.style.display = 'block';
+            // Isi Data Laporan
+            document.getElementById('lap-nama').innerText = result.data.nama;
+            document.getElementById('lap-nomor').innerText = result.data.nomor;
+            document.getElementById('lap-kedisiplinan').innerText = result.data.kedisiplinan;
+            document.getElementById('lap-kelengkapan').innerText = result.data.kelengkapan;
+            document.getElementById('lap-ibadah').innerText = result.data.ibadah;
+            document.getElementById('lap-ratarata').innerText = result.data.ratarata;
+            document.getElementById('lap-predikat').innerText = result.data.predikat;
+
+            wrapper.style.display = 'flex'; // Munculkan dokumen
         } else {
-            pesanError.innerText = "Maaf, Nama tidak ditemukan. Pastikan ejaan sesuai dengan data panitia.";
+            pesanError.innerText = "Maaf, Nama tidak ditemukan. Pastikan ejaan sesuai.";
             wrapper.style.display = 'none';
         }
     } catch (error) {
-        pesanError.innerText = "Terjadi kesalahan sistem atau URL Web App bermasalah. Coba lagi.";
+        pesanError.innerText = "Terjadi kesalahan sistem atau URL Web App bermasalah.";
         console.error("Fetch error: ", error);
         wrapper.style.display = 'none';
     }
 
-    // Kembalikan tombol seperti semula
-    btnCari.innerText = "Cari Sertifikat";
+    btnCari.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> Cari Data';
     btnCari.disabled = false;
 }
 
-function downloadSertifikat() {
-    const certificateNode = document.getElementById('certificate-canvas');
-    const btnDownload = document.getElementById('btn-download');
+// Fungsi serbaguna untuk download Sertifikat & Laporan
+function downloadGambar(canvasId, fileName, btnId) {
+    const node = document.getElementById(canvasId);
+    const btn = document.getElementById(btnId);
     const namaSiswa = document.getElementById('cert-nama').innerText;
     
-    btnDownload.innerText = "Memproses Gambar...";
-    btnDownload.disabled = true;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memproses...';
+    btn.disabled = true;
 
-    // Convert HTML to Canvas lalu jadikan file JPG
-    html2canvas(certificateNode, { scale: 2, useCORS: true }).then(canvas => {
+    html2canvas(node, { scale: 2, useCORS: true }).then(canvas => {
         const link = document.createElement('a');
-        link.download = `Sertifikat_Karomah_${namaSiswa}.jpg`;
+        link.download = `${fileName}_E-Karomah_${namaSiswa}.jpg`;
         link.href = canvas.toDataURL('image/jpeg', 1.0);
         link.click();
         
-        btnDownload.innerText = "Download Sertifikat (JPG)";
-        btnDownload.disabled = false;
+        btn.innerHTML = originalText;
+        btn.disabled = false;
     }).catch(err => {
         console.error("Gagal mendownload: ", err);
-        alert("Terjadi kesalahan saat mengunduh sertifikat.");
-        btnDownload.innerText = "Download Sertifikat (JPG)";
-        btnDownload.disabled = false;
+        alert("Terjadi kesalahan saat mengunduh dokumen.");
+        btn.innerHTML = originalText;
+        btn.disabled = false;
     });
 }
