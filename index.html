@@ -3,49 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Sertifikat Karomah SMKN Bojonggambir 1447 H / 2026 M</title>
+    <title>Portal E-Sertifikat & Laporan - SMKN Bojonggambir</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <link rel="stylesheet" href="style.css">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        /* --- CSS Khusus Tampilan Antarmuka (UI) Web --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .search-container {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .search-container h2 { color: #059669; font-size: 24px; font-weight: 700; margin-bottom: 5px; margin-top: 0; }
+        .search-container p { color: #6b7280; font-size: 14px; margin-bottom: 25px; }
+
+        .input-group { position: relative; margin-bottom: 20px; }
+        .input-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #9ca3af; }
+        
+        #input-nama {
+            width: 100%;
+            padding: 14px 15px 14px 45px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+        #input-nama:focus { outline: none; border-color: #059669; box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1); }
+
+        #btn-cari {
+            width: 100%;
+            padding: 14px;
+            background: #059669;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+            display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
+        #btn-cari:hover { background: #047857; transform: translateY(-2px); }
+        #btn-cari:disabled { background: #9ca3af; cursor: not-allowed; }
+
+        .error-msg { color: #dc2626; font-size: 13px; margin-top: 15px; min-height: 20px; font-weight: 500; }
+
+        /* Area Dokumen Hasil Pencarian */
+        #document-wrapper {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .doc-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .doc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f3f4f6;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .doc-header h3 { font-size: 18px; color: #1f2937; margin: 0; display: flex; align-items: center; gap: 10px; }
+
+        .btn-download-modern {
+            background: #1f2937; color: white; border: none; padding: 10px 20px;
+            border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;
+            transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn-download-modern:hover { background: #374151; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .btn-blue { background: #0284c7; }
+        .btn-blue:hover { background: #0369a1; }
+
+        .canvas-container { overflow-x: auto; padding-bottom: 10px; display: flex; justify-content: center; }
+
+        /* MEMASUKKAN BACKGROUND IMAGE DARI GITHUB KE SERTIFIKAT & LAPORAN */
+        .certificate, .laporan {
+            background-image: url('https://raw.githubusercontent.com/smknbojonggambir/Sertifikat-E-Karomah-1447-H/main/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 5px solid #059669; /* Opsional: memberi garis batas hijau */
+        }
+    </style>
 </head>
 <body>
 
     <div class="search-container">
-        <h2>Cetak E-Sertifikat Karomah</h2>
-        <p>Tahun 1447 H / 2026 M</p>
-        <input type="text" id="input-nama" placeholder="Masukkan Nama Lengkap Anda...">
-        <button onclick="cariSertifikat()" id="btn-cari">Cari Sertifikat</button>
+        <h2>Cetak Dokumen</h2>
+        <p>E-Karomah 1447 H / 2026 M</p>
+        
+        <div class="input-group">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="input-nama" placeholder="Masukkan Nama Lengkap Anda...">
+        </div>
+        
+        <button onclick="cariSertifikat()" id="btn-cari"><i class="fa-solid fa-magnifying-glass"></i> Cari Data</button>
         <p id="pesan-error" class="error-msg"></p>
     </div>
 
-    <div id="certificate-wrapper" style="display: none;">
-        <div id="certificate-canvas" class="certificate">
-            <img src="logo-smk.png" class="logo" alt="Logo SMK">
-            
-            <div class="cert-text">
-                <h1>SERTIFIKAT PENGHARGAAN</h1>
-                <p class="cert-number">Nomor: <span id="cert-nomor"></span></p>
-                <p>Diberikan kepada:</p>
-                <h2 id="cert-nama" class="nama-peserta">Nama Peserta</h2>
-                <p>Atas partisipasinya sebagai:</p>
-                <h3 id="cert-sebagai" class="peran-peserta">Peserta</h3>
-                <p>Dalam Kegiatan Pesantren Kilat "E-Karomah" <br>SMK Negeri Bojonggambir Tahun 1447 H / 2026 M</p>
+    <div id="document-wrapper" style="display: none;">
+        
+        <div class="doc-card">
+            <div class="doc-header">
+                <h3><i class="fa-solid fa-certificate" style="color: #059669;"></i> Sertifikat Penghargaan</h3>
+                <button onclick="downloadGambar('certificate-canvas', 'Sertifikat', 'btn-dl-cert')" class="btn-download-modern" id="btn-dl-cert">
+                    <i class="fa-solid fa-download"></i> Unduh Sertifikat
+                </button>
             </div>
+            
+            <div class="canvas-container">
+                <div id="certificate-canvas" class="certificate">
+                    <img src="https://raw.githubusercontent.com/smknbojonggambir/Sertifikat-E-Karomah-1447-H/main/logo-smk.png" class="logo" alt="Logo SMK">
+                    
+                    <div class="cert-text">
+                        <h1>SERTIFIKAT PENGHARGAAN</h1>
+                        <p class="cert-number">Nomor: <span id="cert-nomor"></span></p>
+                        <p>Diberikan kepada:</p>
+                        <h2 id="cert-nama" class="nama-peserta">Nama Peserta</h2>
+                        <p>Atas partisipasinya sebagai:</p>
+                        <h3 id="cert-sebagai" class="peran-peserta">Peserta</h3>
+                        <p>Dalam Kegiatan Pesantren Kilat "E-Karomah" <br>SMK Negeri Bojonggambir Tahun 1447 H / 2026 M</p>
+                    </div>
 
-            <div class="signatures">
-                <div class="ttd-box">
-                    <p>Ketua Pelaksana</p>
-                    <img src="ttd-ketua.png" class="img-ttd" alt="Tanda Tangan Ketua">
-                    <p class="nama-ttd"><b>Nama Ketua, S.Pd.</b><br>NIP. 1980xxxx</p>
-                </div>
-                <div class="ttd-box">
-                    <p>Kepala Sekolah</p>
-                    <img src="ttd-kepsek.png" class="img-ttd" alt="Tanda Tangan Kepala Sekolah">
-                    <p class="nama-ttd"><b>Nama Kepsek, M.Pd.</b><br>NIP. 1970xxxx</p>
+                    <div class="signatures">
+                        <div class="ttd-box">
+                            <p>Ketua Pelaksana</p>
+                            <img src="ttd-ketua.png" class="img-ttd" alt="Tanda Tangan Ketua">
+                            <p class="nama-ttd"><b>Ali Maulana, S.Pd.</b><br>NIP. 1980xxxx</p>
+                        </div>
+                        <div class="ttd-box">
+                            <p>Kepala Sekolah</p>
+                            <img src="ttd-kepsek.png" class="img-ttd" alt="Tanda Tangan Kepala Sekolah">
+                            <p class="nama-ttd"><b>Iman Rahmat, S. Pd. I</b><br>NIP. 1970xxxx</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <button onclick="downloadSertifikat()" class="btn-download" id="btn-download">Download Sertifikat (JPG)</button>
+
+        <div class="doc-card">
+            <div class="doc-header">
+                <h3><i class="fa-solid fa-file-lines" style="color: #0284c7;"></i> Laporan Hasil Evaluasi</h3>
+                <button onclick="downloadGambar('laporan-canvas', 'Laporan', 'btn-dl-lap')" class="btn-download-modern btn-blue" id="btn-dl-lap">
+                    <i class="fa-solid fa-download"></i> Unduh Laporan
+                </button>
+            </div>
+            
+            <div class="canvas-container">
+                <div id="laporan-canvas" class="laporan">
+                    <img src="https://raw.githubusercontent.com/smknbojonggambir/Sertifikat-E-Karomah-1447-H/main/logo-smk.png" class="logo-lap" alt="Logo SMK">
+                    
+                    <div class="lap-header">
+                        <h2>LAPORAN HASIL EVALUASI PESERTA</h2>
+                        <p>Pesantren Kilat "E-Karomah" 1447 H / 2026 M</p>
+                    </div>
+                    
+                    <div class="lap-identitas">
+                        <p><strong>Nama Lengkap:</strong> <span id="lap-nama"></span></p>
+                        <p><strong>Nomor Dokumen:</strong> <span id="lap-nomor"></span></p>
+                    </div>
+
+                    <table class="tabel-nilai">
+                        <tr>
+                            <th>Aspek Penilaian</th>
+                            <th>Nilai</th>
+                        </tr>
+                        <tr><td>Kedisiplinan</td><td id="lap-kedisiplinan"></td></tr>
+                        <tr><td>Kelengkapan</td><td id="lap-kelengkapan"></td></tr>
+                        <tr><td>Ibadah</td><td id="lap-ibadah"></td></tr>
+                        <tr class="tr-total"><td>Rata-rata</td><td id="lap-ratarata"></td></tr>
+                        <tr class="tr-total"><td>Predikat</td><td id="lap-predikat"></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="script.js"></script>
