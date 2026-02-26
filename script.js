@@ -62,6 +62,7 @@ function downloadGambar(canvasId, fileName, btnId) {
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memproses...';
     btn.disabled = true;
 
+    // Scale 2 agar kualitas gambar tidak pecah saat diunduh
     html2canvas(node, { scale: 2, useCORS: true }).then(canvas => {
         const link = document.createElement('a');
         link.download = `${fileName}_E-Karomah_${namaSiswa}.jpg`;
