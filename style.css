@@ -1,0 +1,48 @@
+body{
+    margin:0;
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #1c1c1c, #3a3a3a);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.card{
+    background:white;
+    width:420px;
+    padding:40px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,0.5);
+}
+
+.logo{
+    width:80px;
+    margin-bottom:10px;
+}
+
+h2{
+    color:#b8860b;
+    margin-bottom:5px;
+}
+
+button{
+    background:#b8860b;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    cursor:pointer;
+    border-radius:5px;
+    margin-top:10px;
+}
+
+button:hover{
+    background:#a67c00;
+}
+
+input{
+    width:90%;
+    padding:10px;
+    margin-top:10px;
+}
