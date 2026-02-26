@@ -7,7 +7,7 @@ if(!namaInput){
     return;
 }
 
-const url = "URL_API_KANG_RULI?nama=" + encodeURIComponent(namaInput);
+const url = "https://script.google.com/macros/s/AKfycbxr0X97Fzm5RnRZAusJ1WiCqXC-Oi2ruU5nW1_QI9wrcdqBwJAnoxQg5nG_DPK1vU-pnw/exec?nama=" + encodeURIComponent(namaInput);
 
 const response = await fetch(url);
 const text = await response.text();
