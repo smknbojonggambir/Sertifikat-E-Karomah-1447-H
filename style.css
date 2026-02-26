@@ -1,175 +1,71 @@
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-min-height:100vh;
-display:flex;
-flex-direction:column;
-align-items:center;
-padding:40px 20px;
-background:radial-gradient(circle at top,#064e3b,#022c22,#011914);
-color:#fff;
-overflow-x:hidden;
-}
-
-/* ==== EFEK PARTIKEL RAMADHAN ==== */
-body::before{
-content:"";
-position:fixed;
-width:200%;
-height:200%;
-background-image:
-radial-gradient(#facc15 1px, transparent 1px),
-radial-gradient(#fde68a 1px, transparent 1px);
-background-size:80px 80px;
-opacity:.08;
-animation:moveStars 60s linear infinite;
-z-index:-1;
-}
-
-@keyframes moveStars{
-from{transform:translateY(0);}
-to{transform:translateY(-500px);}
-}
-
-/* ==== CERTIFICATE PREMIUM ==== */
 .certificate{
 width:1000px;
 height:707px;
-padding:70px;
+padding:80px;
 position:relative;
-background-image:
-linear-gradient(rgba(255,255,255,.92),rgba(255,255,255,.92)),
+background:
+linear-gradient(rgba(255,255,255,.94),rgba(255,255,255,.94)),
 url('https://raw.githubusercontent.com/smknbojonggambir/Sertifikat-E-Karomah-1447-H/main/background.jpg');
 background-size:cover;
 background-position:center;
-border:12px solid #d4af37;
-border-radius:25px;
+border:14px solid transparent;
+border-image:linear-gradient(45deg,#d4af37,#facc15,#b8860b) 1;
+border-radius:30px;
 box-shadow:
-0 0 40px rgba(212,175,55,.6),
-0 0 80px rgba(16,185,129,.3);
+0 0 60px rgba(212,175,55,.7),
+0 0 100px rgba(16,185,129,.3);
 overflow:hidden;
 }
 
-/* ORNAMEN BULAN SABIT */
-.certificate::before{
-content:"☾";
-position:absolute;
-top:40px;
-right:70px;
-font-size:120px;
-color:rgba(212,175,55,.15);
-}
-
-/* ORNAMEN BINTANG */
+/* HOLOGRAM SEAL */
 .certificate::after{
-content:"✦ ✧ ✦";
+content:"E-KAROMAH 1447H";
 position:absolute;
 bottom:60px;
-left:80px;
-font-size:40px;
-color:rgba(212,175,55,.2);
+right:70px;
+font-size:22px;
+color:rgba(212,175,55,.25);
+transform:rotate(-25deg);
+letter-spacing:3px;
 }
 
-/* JUDUL */
-.certificate h1{
+/* NAMA GOLD FOIL */
+#cert-nama{
+font-size:38px;
+font-weight:800;
+background:linear-gradient(90deg,#d4af37,#facc15,#fff5b1,#d4af37);
+background-size:300% auto;
+color:transparent;
+background-clip:text;
+-webkit-background-clip:text;
+animation:goldShine 5s linear infinite;
+}
+
+@keyframes goldShine{
+0%{background-position:0%}
+100%{background-position:300%}
+}
+
+/* EMBOSS LOGO */
+.logo{
+position:absolute;
+top:50px;
+left:70px;
+height:90px;
+filter:drop-shadow(0 4px 6px rgba(0,0,0,.4));
+}
+
+/* TANDA TANGAN */
+.signature{
+position:absolute;
+bottom:80px;
+left:100px;
 text-align:center;
-font-size:42px;
-margin-top:110px;
-color:#065f46;
-text-shadow:0 0 10px rgba(212,175,55,.4);
-letter-spacing:2px;
 }
 
-.certificate h2{
-text-align:center;
-font-size:34px;
-margin:20px 0;
-color:#111827;
-font-weight:700;
-}
-
-.certificate p{
-text-align:center;
-font-size:18px;
-color:#374151;
-}
-
-/* ==== LAPORAN PREMIUM ==== */
-.laporan{
-width:794px;
-height:1123px;
-padding:80px 70px;
-background-image:
-linear-gradient(rgba(255,255,255,.95),rgba(255,255,255,.95)),
-url('https://raw.githubusercontent.com/smknbojonggambir/Sertifikat-E-Karomah-1447-H/main/background.jpg');
-background-size:cover;
-background-position:center;
-border:10px solid #d4af37;
-border-radius:25px;
-box-shadow:
-0 0 30px rgba(212,175,55,.5);
-}
-
-.laporan h2{
-text-align:center;
-color:#065f46;
-font-size:30px;
-margin-bottom:40px;
-text-shadow:0 0 8px rgba(212,175,55,.3);
-}
-
-/* TABEL */
-.tabel{
-width:100%;
-border-collapse:collapse;
-background:rgba(255,255,255,.95);
-border-radius:15px;
-overflow:hidden;
-}
-
-.tabel th{
-background:linear-gradient(90deg,#065f46,#047857);
-color:#fff;
-padding:15px;
-font-size:16px;
-}
-
-.tabel td{
-border:1px solid #e5e7eb;
-padding:14px;
-font-size:15px;
-}
-
-.total{
-font-weight:700;
-background:#fef3c7;
-color:#92400e;
-}
-
-/* TOMBOL PREMIUM */
-button{
-margin-top:20px;
-padding:14px;
-width:100%;
-max-width:350px;
-border:none;
-border-radius:12px;
-background:linear-gradient(90deg,#d4af37,#facc15);
-color:#111827;
-font-weight:700;
-cursor:pointer;
-transition:.3s;
-box-shadow:0 0 20px rgba(212,175,55,.5);
-}
-
-button:hover{
-transform:scale(1.05);
-box-shadow:0 0 35px rgba(212,175,55,.8);
+.signature img{
+height:70px;
+opacity:.85;
 }
 </style>
