@@ -1,28 +1,53 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sertifikat E-Karomah 1447 H</title>
-
-<link rel="stylesheet" href="style.css">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Sertifikat Karomah SMKN Bojonggambir 1447 H / 2026 M</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
-
 <body>
 
-<div class="card">
-    <img src="logo-smk.png" class="logo">
-    <h2>E-KAROMAH</h2>
-    <p>SMK Negeri Bojonggambir<br>1447 H / 2026 M</p>
+    <div class="search-container">
+        <h2>Cetak E-Sertifikat Karomah</h2>
+        <p>Tahun 1447 H / 2026 M</p>
+        <input type="text" id="input-nama" placeholder="Masukkan Nama Lengkap Anda...">
+        <button onclick="cariSertifikat()" id="btn-cari">Cari Sertifikat</button>
+        <p id="pesan-error" class="error-msg"></p>
+    </div>
 
-    <input type="text" id="nama" placeholder="Masukkan Nama Lengkap">
-    <button onclick="cariData()">Generate Sertifikat</button>
-</div>
+    <div id="certificate-wrapper" style="display: none;">
+        <div id="certificate-canvas" class="certificate">
+            <img src="logo-smk.png" class="logo" alt="Logo SMK">
+            
+            <div class="cert-text">
+                <h1>SERTIFIKAT PENGHARGAAN</h1>
+                <p class="cert-number">Nomor: <span id="cert-nomor"></span></p>
+                <p>Diberikan kepada:</p>
+                <h2 id="cert-nama" class="nama-peserta">Nama Peserta</h2>
+                <p>Atas partisipasinya sebagai:</p>
+                <h3 id="cert-sebagai" class="peran-peserta">Peserta</h3>
+                <p>Dalam Kegiatan Pesantren Kilat "E-Karomah" <br>SMK Negeri Bojonggambir Tahun 1447 H / 2026 M</p>
+            </div>
 
-<script src="script.js"></script>
+            <div class="signatures">
+                <div class="ttd-box">
+                    <p>Ketua Pelaksana</p>
+                    <img src="ttd-ketua.png" class="img-ttd" alt="Tanda Tangan Ketua">
+                    <p class="nama-ttd"><b>Nama Ketua, S.Pd.</b><br>NIP. 1980xxxx</p>
+                </div>
+                <div class="ttd-box">
+                    <p>Kepala Sekolah</p>
+                    <img src="ttd-kepsek.png" class="img-ttd" alt="Tanda Tangan Kepala Sekolah">
+                    <p class="nama-ttd"><b>Nama Kepsek, M.Pd.</b><br>NIP. 1970xxxx</p>
+                </div>
+            </div>
+        </div>
+        
+        <button onclick="downloadSertifikat()" class="btn-download" id="btn-download">Download Sertifikat (JPG)</button>
+    </div>
 
+    <script src="script.js"></script>
 </body>
 </html>
