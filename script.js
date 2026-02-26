@@ -1,5 +1,5 @@
 // ====== GANTI STRING DI BAWAH INI DENGAN URL WEB APP ANDA ======
-const scriptURL = 'https://script.google.com/macros/s/AKfycbxOq8W2c2i7FMk5sJHojhngZjo0o7aSFelkUH5ZHMfYNx0PcCzRaX7GoAhQkWELNWLXPg/exec'; 
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyuK7FNtQK5oXIEhlxTYnT34R4ELTtR1HSEd8g1L1wteGRwKWY9RlKcrFS2EJO97_HQYg/exec'; 
 // ===============================================================
 
 async function cariSertifikat() {
